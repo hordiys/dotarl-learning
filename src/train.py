@@ -1,5 +1,6 @@
 from environment import *
 from agent import *
+import csv
 env = BaseEnvironment()
 agent = Agent(env.moves)
 
@@ -14,11 +15,11 @@ for episode in range(100):
 
     state = env.reset()
 
-    done = False
     total_reward = 0
     steps = 0
+    max_steps = 100
 
-    while not done:
+    while not done and steps < max_steps:
 
         action = agent.choose_action(state)
 
@@ -32,3 +33,7 @@ for episode in range(100):
     episode_rewards.append(total_reward)
     episode_steps.append(steps)
     episode_wins.append(win)
+    with open("results\first_results.csv", 'w', newline='') as myfile:
+     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+     wr.writerow(episode_steps)
+     wr.writerow(episode_wins)

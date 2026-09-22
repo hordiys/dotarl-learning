@@ -26,11 +26,13 @@ class BaseEnvironment :
             self.reward -= 0.02
             if self.state[1] <= 50:
                 self.reward += 1
+                self.done = True
         return self.state, self.reward, self.done
 
     def reset(self):
         self.state = [0, 800, 5, 100]
         self.reward = 0
+        self.done = False
         return self.state
 
     def creep_attack(self):
